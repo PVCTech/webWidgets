@@ -3,7 +3,7 @@ Khi triển khai các trang ứng dụng/trang web. Việc ghép nối các ý t
 
 ## DANH SÁCH CÁC WIDGETS:
 1. [PVC Datepicker - v1.0](https://github.com/PVCTech/webWidgets/tree/main/datePicker)
-2. Web clocks
+2. [Web clocks](https://github.com/PVCTech/webWidgets/tree/main/clock)
 3. Navigator buttons
 4. Simple login with number theme
 5. 
