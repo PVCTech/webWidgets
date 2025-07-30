@@ -1,9 +1,10 @@
 # WebClock
 Hỗ trợ thêm 1 bộ chọn thời gian, ngày tháng trên trang web, sau đó cập nhật vào giá trị của 1 input element theo id trên trang web
-
+--- Trạng thái: đang hoàn thiện
 ## CHỨC NĂNG CHÍNH:
-1. 
-2. Web clocks
+1. Web clocks
+2. Đồng bộ thời gian với máy chủ hỗ trợ php (tránh thời gian trên máy sai)
+3. Cảnh báo mất kết nối máy chủ (mất mạng, ...)
 
 ## HƯỚNG DẪN CÀI ĐẶT VÀ SỬ DỤNG:
 

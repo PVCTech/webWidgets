@@ -1,28 +1,35 @@
    
 class PVCClock
 {
-    constructor(id='pvcClock', format='hh:mm:ss', options={color: 'rgba(255,255,255,0.8)', fontSize: '40px'})
+    constructor(containerId, id='pvcClock', format='hh:mm:ss', options={color: 'rgba(255,255,255,0.8)', fontSize: '40px'})
     {
         this.id = id;
         this.options = options;
+        this.format = format;
+        this.containerId = containerId;
+        this.container = document.getElementById(containerId);
+        if (!this.container) {
+            console.error(`Container with id ${containerId} not found.`);
+            return;
+        }
+        this.container.innerHTML = '';
+        this.container.appendChild(this.renderClock());
+        this.init();
     }
 
     init()
     {
-        this.format = format;
-        this.clockElement = this.renderClock();
-        document.body.appendChild(this.clockElement);
-        document.getElementById(this.id + '_Clock_Gio').textContent = '00';
-        document.getElementById(this.id + '_Clock_Phut').textContent = '00';
+        document.getElementById(this.id + '_Clock_Gio').textContent = '--';
+        document.getElementById(this.id + '_Clock_Phut').textContent = '--';
         document.getElementById(this.id + '_Clock_Tick').textContent = ':';
         document.getElementById('Clock_Network_Error').style.display = 'none';
-        setInterval(function(){flashTick();},1000);
-        this.updateTime();
+        if (this.format == 'hh:mm') {setInterval(()=>{this.flashTick();},1000);}
+        setInterval(()=>{this.updateTime();},1000);
     }
 
     renderClock()
     {
-        var clock = documecreateElement('div');
+        var clock = document.createElement('div');
         clock.className = 'Clock';
         clock.style.color = this.options.color;
         clock.style.fontSize = this.options.fontSize;
@@ -40,6 +47,10 @@ class PVCClock
                 tr.appendChild(td3);
                     if (this.format == 'hh:mm:ss') 
                     {
+                        var td6 = document.createElement('td');
+                        td6.style.width = '10px';
+                        td6.innerHTML = `<center>:</center>`;
+                        tr.appendChild(td6);
                         var td4 = document.createElement('td');
                         td4.innerHTML = `<span id="${this.id}_Clock_Giay"></span>`;
                         tr.appendChild(td4);
@@ -53,12 +64,13 @@ class PVCClock
     }
 
     
-    flashTick()
+    flashTick = ()=>
     {
-        document.getElementById(this.id + '_Clock_Tick').textContent = ':';
+        var that = this;
+        document.getElementById(that.id + '_Clock_Tick').textContent = ':';
         setTimeout(function()
         {
-            document.getElementById(this.id + '_Clock_Tick').textContent = '';
+            document.getElementById(that.id + '_Clock_Tick').textContent = '';
         },500);
     }
 
