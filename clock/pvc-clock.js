@@ -7,6 +7,19 @@ class PVCClock
         this.options = options;
     }
 
+    init()
+    {
+        this.format = format;
+        this.clockElement = this.renderClock();
+        document.body.appendChild(this.clockElement);
+        document.getElementById(this.id + '_Clock_Gio').textContent = '00';
+        document.getElementById(this.id + '_Clock_Phut').textContent = '00';
+        document.getElementById(this.id + '_Clock_Tick').textContent = ':';
+        document.getElementById('Clock_Network_Error').style.display = 'none';
+        setInterval(function(){flashTick();},1000);
+        this.updateTime();
+    }
+
     function renderClock()
     {
         var clock = documecreateElement('div');
@@ -40,7 +53,7 @@ class PVCClock
     }
 
     
-    function TickFlash()
+    function flashTick()
     {
         document.getElementById(this.id + '_Clock_Tick').textContent = ':';
         setTimeout(function()
@@ -48,80 +61,27 @@ class PVCClock
             document.getElementById(this.id + '_Clock_Tick').textContent = '';
         },500);
     }
-    setInterval(function(){TickFlash();},1000);
+
+    function updateTime()
+    {
+        var now = new Date();
+        var hours = now.getHours().toString().padStart(2, '0');
+        var minutes = now.getMinutes().toString().padStart(2, '0');
+        var seconds = now.getSeconds().toString().padStart(2, '0');
+
+        document.getElementById(this.id + '_Clock_Gio').textContent = hours;
+        document.getElementById(this.id + '_Clock_Phut').textContent = minutes;
+        
+        if (this.format == 'hh:mm:ss') 
+        {
+            document.getElementById(this.id + '_Clock_Giay').textContent = seconds;
+        }
+    }
+    
 }
 
 
 
 document.write(renderClock());
 
-function Clock_Init() {
-    document.getElementById('Clock_Gio').textContent = '00';
-    document.getElementById('Clock_Phut').textContent = '00';
-    document.getElementById('Clock_Tick').textContent = ':';
-    document.getElementById('Clock_Tick2').textContent = ':';
-    document.getElementById('Clock_Network_Error').style.display = 'none';
-}
-Clock_Init();
 
-function Clock_UpdateTime() {
-    var field_name = '';
-    var edit_id = '';
-    var value = '';
-
-    fetch('/giacuoc/clock/gettime.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: `field=${encodeURIComponent(field_name)}&value=${encodeURIComponent(value)}&id=${encodeURIComponent(edit_id)}`
-    })
-    .then(response => response.text())
-    .then(response => {
-        var Tach = response.split(':');
-        document.getElementById('Clock_Gio').textContent = Tach[0];
-        document.getElementById('Clock_Phut').textContent = Tach[1];
-        document.getElementById('Clock_Network_Error').style.display = 'none';
-    })
-    .catch(() => {
-        document.getElementById('Clock_Network_Error').style.display = '';
-    });
-}
-Clock_UpdateTime();
-var Clock_UpdateTime_TimeOut;
-Clock_UpdateTime_TimeOut = setInterval(function(){Clock_UpdateTime();},30000);
-
-
-let ThoiGianDieuChinh = 90;
-var TocDoDieuChinh = 2;
-var SoLanDieuChinh = 0;
-var DongBo_TimeOut;
-
-function DongBoThoiGianVoiPC() {
-    let SaiSo = 2;
-    let SaiSoAm = -2;
-    var date = new Date();
-    var h = parseInt(date.getHours()); 
-    var m = parseInt(date.getMinutes());
-
-    var Gio = parseInt(document.getElementById('Clock_Gio').textContent);
-    var Phut = parseInt(document.getElementById('Clock_Phut').textContent);
-
-    if (h == Gio) {
-        var LechPhut = m - Phut;
-        if ((LechPhut > 0 && LechPhut <= SaiSo) || (LechPhut < 0 && LechPhut >= SaiSoAm)) {
-            m = m < 10 ? '0' + m : m;
-            document.getElementById('Clock_Phut').textContent = m;
-            clearInterval(Clock_UpdateTime_TimeOut);
-            Clock_UpdateTime_TimeOut = setInterval(function(){Clock_UpdateTime();},30000);
-        }
-    }
-
-    SoLanDieuChinh = SoLanDieuChinh + 2;
-
-    if (SoLanDieuChinh >= ThoiGianDieuChinh) {
-        clearInterval(DongBo_TimeOut);
-    }
-}
-
-DongBo_TimeOut = setInterval(function(){DongBoThoiGianVoiPC();},TocDoDieuChinh*1000);
