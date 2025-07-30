@@ -1,29 +1,57 @@
    
-function renderClock()
+class PVCClock
 {
-    var clock = documecreateElement('div');
-    clock.className = 'Clock';
-    clock.style.color = 'rgba(255,255,255,0.8)';
-    clock.style.fontSize = '40px';
-        var tbl = document.createElement('table');
-            var tr = document.createElement('tr');
-                var td1 = document.createElement('td');
-                td1.innerHTML = '<span id="Clock_Gio"></span>';
-                var td2 = document.createElement('td');
-                td2.style.width = '10px';
-                td2.innerHTML = '<center><span id="Clock_Tick"></span></center>';
-                var td3 = document.createElement('td');
-                td3.innerHTML = '<span id="Clock_Phut"></span>';
-                var td4 = document.createElement('td');
-                td4.innerHTML = '<span id="Clock_Network_Error" style="color:orange;font-size:14px;display:none;">Mạng lỗi!</span><span id="Clock_Tick2"></span>';
-            tr.appendChild(td1);
-            tr.appendChild(td2);
-            tr.appendChild(td3);
-            tr.appendChild(td4);
-        tbl.appendChild(tr);
-    clock.appendChild(tbl);
-    return clock;
+    constructor(id='pvcClock', format='hh:mm:ss', options={color: 'rgba(255,255,255,0.8)', fontSize: '40px'})
+    {
+        this.id = id;
+        this.options = options;
+    }
+
+    function renderClock()
+    {
+        var clock = documecreateElement('div');
+        clock.className = 'Clock';
+        clock.style.color = this.options.color;
+        clock.style.fontSize = this.options.fontSize;
+            var tbl = document.createElement('table');
+                var tr = document.createElement('tr');
+                    var td1 = document.createElement('td');
+                    td1.innerHTML = `<span id="${this.id}_Clock_Gio"></span>`;
+                    var td2 = document.createElement('td');
+                    td2.style.width = '10px';
+                    td2.innerHTML = `<center><span id="${this.id}_Clock_Tick"></span></center>`;
+                    var td3 = document.createElement('td');
+                    td3.innerHTML = `<span id="${this.id}_Clock_Phut"></span>`;
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tr.appendChild(td3);
+                    if (this.format == 'hh:mm:ss') 
+                    {
+                        var td4 = document.createElement('td');
+                        td4.innerHTML = `<span id="${this.id}_Clock_Giay"></span>`;
+                        tr.appendChild(td4);
+                    }
+                    var td5 = document.createElement('td');
+                    td5.innerHTML = '<span id="Clock_Network_Error" style="color:orange;font-size:14px;display:none;">Mạng lỗi!</span><span id="Clock_Tick2"></span>';
+                tr.appendChild(td5);
+            tbl.appendChild(tr);
+        clock.appendChild(tbl);
+        return clock;
+    }
+
+    
+    function TickFlash()
+    {
+        document.getElementById(this.id + '_Clock_Tick').textContent = ':';
+        setTimeout(function()
+        {
+            document.getElementById(this.id + '_Clock_Tick').textContent = '';
+        },500);
+    }
+    setInterval(function(){TickFlash();},1000);
 }
+
+
 
 document.write(renderClock());
 
@@ -63,13 +91,6 @@ Clock_UpdateTime();
 var Clock_UpdateTime_TimeOut;
 Clock_UpdateTime_TimeOut = setInterval(function(){Clock_UpdateTime();},30000);
 
-function TickFlash() {
-    document.getElementById('Clock_Tick').textContent = ':';
-    setTimeout(function(){
-        document.getElementById('Clock_Tick').textContent = '';
-    },500);
-}
-setInterval(function(){TickFlash();},1000);
 
 let ThoiGianDieuChinh = 90;
 var TocDoDieuChinh = 2;
