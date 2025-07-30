@@ -20,7 +20,7 @@ class PVCClock
         this.updateTime();
     }
 
-    function renderClock()
+    renderClock()
     {
         var clock = documecreateElement('div');
         clock.className = 'Clock';
@@ -53,7 +53,7 @@ class PVCClock
     }
 
     
-    function flashTick()
+    flashTick()
     {
         document.getElementById(this.id + '_Clock_Tick').textContent = ':';
         setTimeout(function()
@@ -62,7 +62,7 @@ class PVCClock
         },500);
     }
 
-    function updateTime()
+    updateTime()
     {
         var now = new Date();
         var hours = now.getHours().toString().padStart(2, '0');
@@ -81,7 +81,5 @@ class PVCClock
 }
 
 
-
-document.write(renderClock());
 
 
