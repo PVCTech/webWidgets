@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="datePicker" name="datePicker">
+    <script>
+        document.getElementById('datePicker').addEventListener('change', function() {
+            const selectedDate = this.value;
+            console.log('Selected date:', selectedDate);
+            // You can add more functionality here, like updating a display or sending the date to a server
+        });
+    </script>
+</body>
+</html>

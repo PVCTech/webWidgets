@@ -11,60 +11,135 @@ const PVC_Fns_CN_Div_CheContainer = document.createElement('div');
 	PVC_Fns_CN_Div_CheContainer.addEventListener('click', function()
 	{
 		PVC_Fns_HideLichThang();
-	}
+	});
 
 const PVC_Fns_CN_Div_Container = document.createElement('div');
 	PVC_Fns_CN_Div_Container.id = 'PVC_Fns_CN_Div_Container';
 	PVC_Fns_CN_Div_Container.style.textAlign = 'center';
 	PVC_Fns_CN_Div_Container.style.display = 'none';
-	const tbl1 = 
+		const tbl_bg = document.createElement('table');
+		tbl_bg.style.width = '100%';
+		tbl_bg.style.border = '0';
+			const tbl_bg_tr1 = document.createElement('tr');
+				const tbl_bg_tr1_td1 = document.createElement('td');
+				tbl_bg_tr1_td1.addEventListener('click', function()
+				{
+					PVC_Fns_HideLichThang();
+				});				
+			tbl_bg_tr1.appendChild(tbl_bg_tr1_td1);
 
+				const tbl_bg_tr1_td2 = document.createElement('td');
+				tbl_bg_tr1_td2.style.width = '250px';
+					const divNoiDungChinh = document.createElement('div');
+					divNoiDungChinh.className = 'PVC_Fns_CN_Div';
+					divNoiDungChinh.style.background = 'white';
+					divNoiDungChinh.style.borderRadius = '5px';
+					divNoiDungChinh.style.border = '1px solid rgba(0,0,0,0.3)';
+					divNoiDungChinh.style.padding = '2px';
+						const tblCaption = document.createElement('table');
+						tblCaption.style.width = '100%';
+							const tablCaption_tr1 = document.createElement('tr');
+								const tablCaption_tr1_td1 = document.createElement('td');
+								tablCaption_tr1_td1.style.textAlign = 'center';
+								tablCaption_tr1_td1.innerHTML = '<div style="color:green;text-align:center;width:98%;" id="PVC_Fns_CN_Caption">Chọn ngày</div>';
+							tablCaption_tr1.appendChild(tablCaption_tr1_td1);
 
-<div style="position:fixed;top:0px;left:0px;background:rgba(255,255,255,0.45);width:100%;height:100%;z-index:1000;display:none;" id="PVC_Fns_CN_Div_CheContainer" onclick="PVC_Fns_HideLichThang();"></div>
-	<div class="PVC_Fns_CN_Div_Container" id="PVC_Fns_CN_Div_Container" style="display:none;"><center>
-		<table style="width:100%;" border="0">
-		    <tr>
-		        <td onclick="PVC_Fns_HideLichThang();"></td>
-		        <td style="width:250px;">
-		            <div style="background:white;border-radius:5px;border:1px solid rgba(0,0,0,0.3);padding:2px;" class="PVC_Fns_CN_Div">
-            			<table style="width:100%;">
-            			    <tr>
-            			        <td>
-            			            <center><div style="color:green;text-align:center;width:98%;" id="PVC_Fns_CN_Caption">Chọn ngày</div></center>
-            			        </td>
-            			        <td>
-            			            <input type="text" id="PVC_Fns_CN_GiaTriHienTai" value="" ondblclick="PVC_Fns_HideLichThang();" class="InputBox" style="width:100px;">
-            			            <script>
-										let giaTriHienTai = document.getElementById('PVC_Fns_CN_GiaTriHienTai');
-										giaTriHienTai.addEventListener('keyup', function(e)
+								const tablCaption_tr1_td2 = document.createElement('td');
+								tablCaption_tr1_td2.style.textAlign = 'right';
+									const inputGiaTriHienTai = document.createElement('input');
+									inputGiaTriHienTai.type = 'text';
+									inputGiaTriHienTai.id = 'PVC_Fns_CN_GiaTriHienTai';
+									inputGiaTriHienTai.value = '';
+									inputGiaTriHienTai.className = 'InputBox';
+									inputGiaTriHienTai.style.width = '100px';
+									inputGiaTriHienTai.addEventListener('dblclick', function()	
+									{
+										PVC_Fns_HideLichThang();
+									});
+									giaTriHienTai.addEventListener('keyup', function(e)
+										{
+											if (e.key === 'Enter' || e.keyCode === 13) 
 											{
-												if (e.key === 'Enter' || e.keyCode === 13) 
+												PVC_Fns_HideLichThang();
+											}
+											else
+											{
+												let idTextBoxHienTai = document.getElementById('PVC_Fns_CN_IdTextBoxHienTai').value;
+												let textBoxHienTai = document.getElementById(idTextBoxHienTai);
+												let giaTriHienTaiValue = giaTriHienTai.value;
+												textBoxHienTai.value = giaTriHienTaiValue;
+												let ntn = tachNgayThang(textBoxHienTai.value);
+												if (ntn.ok == false)
 												{
-													PVC_Fns_HideLichThang();
+													
 												}
 												else
 												{
-												    let idTextBoxHienTai = document.getElementById('PVC_Fns_CN_IdTextBoxHienTai').value;
-													let textBoxHienTai = document.getElementById(idTextBoxHienTai);
-													let giaTriHienTaiValue = giaTriHienTai.value;
-													textBoxHienTai.value = giaTriHienTaiValue;
-													let ntn = tachNgayThang(textBoxHienTai.value);
-													if (ntn.ok == false)
-													{
-														
-													}
-													else
-													{
-														PVC_Fns_LoadLichThang(ntn.ngay, ntn.thang, ntn.nam, 0);													
-													}
+													PVC_Fns_LoadLichThang(ntn.ngay, ntn.thang, ntn.nam, 0);													
 												}
 											}
-										);
-            			            </script>
+										}
+									);
+								
+								tablCaption_tr1_td2.appendChild(inputGiaTriHienTai);
+							tablCaption_tr1.appendChild(tablCaption_tr1_td2);
+						tblCaption.appendChild(tablCaption_tr1);
+						
+						
+						const divThang = document.createElement('div');
+						divThang.className = 'PVC_Fns_CN_Thang_Div';
+							divThang = 	`<table style="width:100%;" border="0">
+											<tr style="text-align:center;">
+												<td style="width:10%;">
+													<div class="PVC_Fns_CN_Thang_NextBack" onclick="PVC_Fns_CN_ChuyenThangTruoc();">
+														<svg width="7" height="16" style="width:7px;height:16px;">
+															<path stroke="black" fill="none" d="M6,5 l-5,3 l5,3" />
+														</svg>
+													</div>
+												</td>
+												
+												<td>
+													<div id="PVC_Fns_CN_Thang_NoiDung" class="PVC_Fns_CN_Thang_NoiDung">Tháng 12/2023</div>
+													<input type="number" value="0" style="display:none;" id="PVC_Fns_CN_NgayHienTai">
+													<input type="number" value="0" style="display:none;" id="PVC_Fns_CN_ThangHienTai">
+													<input type="number" value="0" style="display:none;" id="PVC_Fns_CN_NamHienTai">
+													<input type="text" value="0" style="display:none;" id="PVC_Fns_CN_IdTextBoxHienTai">
+													<input type="text" value="0" style="display:none;" id="PVC_Fns_CN_FormatHienTai">
+												</td>
+												
+												<td style="width:10%;">
+													<div class="PVC_Fns_CN_Thang_NextBack" onclick="PVC_Fns_CN_ChuyenThangSau();">
+														<svg width="7" height="16" style="width:7px;height:16px;">
+															<path stroke="black" fill="none" d="M1,5 l5,3 l-5,3" />
+														</svg>
+													</div>
+												</td>
+											</tr>
+										</table>`;								
 
-            			        </td>
-            			    </tr>
-            			</table>
+					divNoiDungChinh.innerHTML += divThang;
+					divNoiDungChinh.appendChild(tblCaption);
+				tbl_bg_tr1_td2.appendChild(divNoiDungChinh);
+			tbl_bg_tr1.appendChild(tbl_bg_tr1_td2);
+
+
+			const tbl_bg_tr1_td3 = document.createElement('td');
+				tbl_bg_tr1_td3.addEventListener('click', function()
+				{
+					PVC_Fns_HideLichThang();
+				});				
+			tbl_bg_tr1.appendChild(tbl_bg_tr1_td3);
+		tbl_bg.appendChild(tbl_bg_tr1);
+	PVC_Fns_CN_Div_Container.appendChild(tbl_bg);
+
+
+	<div class="PVC_Fns_CN_Div_Container" id="PVC_Fns_CN_Div_Container" style="display:none;"><center>
+		<table style="width:100%;" border="0">
+		    <tr>
+		        <td style="width:250px;">
+		            <div style="background:white;border-radius:5px;border:1px solid rgba(0,0,0,0.3);padding:2px;" class="PVC_Fns_CN_Div">
+            			
+
             			<div class="PVC_Fns_CN_Thang_Div">
             				<table style="width:100%;" border="0">
             					<tr style="text-align:center;">
@@ -93,8 +168,7 @@ const PVC_Fns_CN_Div_Container = document.createElement('div');
             							</div>
             						</td>
             					</tr>
-            				</table>
-            				
+            				</table>            				
             			</div>
             			
             			<table style="width:100%;" border="0" id="PVC_Fns_CN_Table"></table>
@@ -143,11 +217,11 @@ const PVC_Fns_CN_Div_Container = document.createElement('div');
         				</script>
             		</div>
 		        </td>
-		        <td onclick="PVC_Fns_HideLichThang();"></td>
 		    </tr>
 		</table>
 	</div>
-	<script>
+
+
 	    function isNumber(so)
 		{
 			return !isNaN(so) && so !==null && so!=='' && so!=='undefined' && so!=='NaN';
@@ -461,5 +535,4 @@ const PVC_Fns_CN_Div_Container = document.createElement('div');
 			else{Thang++;}
 			PVC_Fns_LoadLichThang(Ngay,Thang,Nam);
 		}
-	</script>
 	<!--- <input type="text" id="Test" placeholder="click to pick" onclick="PVC_Fns_CN_LoadLichThang(this.id,'dd/mm','Chọn..đến ngày..');"> --->
