@@ -72,7 +72,7 @@ const PVC_Fns_CN_Div_Container = document.createElement('div');
 											{
 												let idTextBoxHienTai = PVC_Fns_CN_IdTextBoxHienTai;
 												let textBoxHienTai = document.getElementById(idTextBoxHienTai);
-												let giaTriHienTaiValue = giaTriHienTai.value;
+												let giaTriHienTaiValue = inputGiaTriHienTai.value;
 												textBoxHienTai.value = giaTriHienTaiValue;
 												let ntn = tachNgayThang(textBoxHienTai.value);
 												if (ntn.ok == false)
