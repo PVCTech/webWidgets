@@ -47,7 +47,7 @@
 .PVC_Fns_CN_Ngay_Div_Active:active
 {
 	background:white;
-	color:blue;
+	color: var(--primary);
 }
 
 .PVC_Fns_CN_Ngay_Div_Selected
