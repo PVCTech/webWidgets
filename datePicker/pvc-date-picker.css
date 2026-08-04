@@ -52,7 +52,7 @@
 
 .PVC_Fns_CN_Ngay_Div_Selected
 {
-	background: -webkit-linear-gradient(top left, #25A55E, #9ABE5B);
+	background: -webkit-linear-gradient(top left, var(--primary), var(--secondary));
 	/* border:1px solid rgba(0,0,0,0.5); */
 	border-radius:3px;
 	color:white;
