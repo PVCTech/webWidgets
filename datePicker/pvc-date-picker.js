@@ -45,7 +45,7 @@ const PVC_Fns_CN_Div_Container = document.createElement('div');
 							const tablCaption_tr1 = document.createElement('tr');
 								const tablCaption_tr1_td1 = document.createElement('td');
 								tablCaption_tr1_td1.style.textAlign = 'center';
-								tablCaption_tr1_td1.innerHTML = '<div style="color:green;text-align:center;width:98%;" id="PVC_Fns_CN_Caption">Chọn ngày</div>';
+								tablCaption_tr1_td1.innerHTML = '<div style="color:var(--primary);text-align:center;width:98%;" id="PVC_Fns_CN_Caption">Chọn ngày</div>';
 							tablCaption_tr1.appendChild(tablCaption_tr1_td1);
                 
 								const tablCaption_tr1_td2 = document.createElement('td');
