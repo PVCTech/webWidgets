@@ -61,13 +61,13 @@
 .PVC_Fns_CN_Ngay_Div_Selected:hover
 {
 	background:rgba(0,0,0,0.1);
-	color:green;
+	color: var(--primary);
 }
 
 .PVC_Fns_CN_Ngay_Div_Selected:active
 {
 	background:white;
-	color:green;
+	color:var(--primary);
 }
 
 .PVC_Fns_CN_Table
@@ -77,7 +77,7 @@ width:100%;
 
 .PVC_Fns_CN_Thang_Div
 {
-	background: -webkit-linear-gradient(top left, #25A55E, #9ABE5B);
+	background: -webkit-linear-gradient(top left, var(--primary), var(--secondary));
 	border-radius:5px;
 	padding:2px;
 	
